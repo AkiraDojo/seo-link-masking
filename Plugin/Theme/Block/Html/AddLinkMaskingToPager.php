@@ -33,7 +33,9 @@ class AddLinkMaskingToPager
 
         $query = [];
         //phpcs:ignore Magento2.Functions.DiscouragedFunction
-        parse_str(parse_url($url, PHP_URL_QUERY), $query);
+        if ($q = parse_url($url, PHP_URL_QUERY)) {
+            parse_str($q, $query);
+        }
 
         if ($page === null || (int)$page === 1) {
             unset($query[$paginationParam]);
